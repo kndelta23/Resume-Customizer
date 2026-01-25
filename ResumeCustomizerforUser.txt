@@ -1,0 +1,36 @@
+RESUME CUSTOMIZER - USER GUIDE
+
+OVERVIEW
+This tool automatically customizes your master resume and generates a tailored cover letter for a specific job posting.
+
+HOW TO USE
+You can run this tool using a simple command line request (curl).
+
+1. Job URL Method (Recommended)
+   If you have a link to the job posting, use this command:
+
+   curl -X POST https://us-central1-resume-customizer-484719.cloudfunctions.net/resume-customizer \
+   -H "Content-Type: application/json" \
+   -d '{"job_url": "YOUR_JOB_URL_HERE"}'
+
+   Example:
+   curl -X POST https://us-central1-resume-customizer-484719.cloudfunctions.net/resume-customizer \
+   -H "Content-Type: application/json" \
+   -d '{"job_url": "https://job-boards.greenhouse.io/qualifiedhealth/jobs/5012125008"}'
+
+2. Paste Description Method
+   If the URL doesn't work or you want to paste the text directly:
+
+   curl -X POST https://us-central1-resume-customizer-484719.cloudfunctions.net/resume-customizer \
+   -H "Content-Type: application/json" \
+   -d '{"job_description": "PASTE THE FULL JOB DESCRIPTION HERE"}'
+
+OUTPUT
+The tool will return a success message with links to your new files.
+The files are saved to your Google Cloud Storage bucket: gs://knd2321-test2/
+
+File Naming Convention:
+- Resume: [Company]_[JobTitle]_Resume_[Date].docx
+- Cover Letter: [Company]_[JobTitle]_CoverLetter_[Date].docx
+
+You can download them from the Google Cloud Console or using the gcloud command line tool.

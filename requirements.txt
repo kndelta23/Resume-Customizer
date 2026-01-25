@@ -1,0 +1,7 @@
+functions-framework==3.*
+google-generativeai
+google-cloud-storage
+pypdf
+requests
+beautifulsoup4
+python-docx
