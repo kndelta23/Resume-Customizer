@@ -17,7 +17,7 @@ gcloud functions deploy $FUNCTION_NAME \
     --source=. \
     --entry-point=$ENTRY_POINT \
     --trigger-http \
-    --set-env-vars GEMINI_API_KEY=AIzaSyCfDRlJRL2BH8i-FXg-5WykCkNZHg_cFbY \
+    --set-secrets GEMINI_API_KEY=gemini-api-key:latest \
     --allow-unauthenticated
 
 echo "Deployment initiated. Check the output above for the URL."
