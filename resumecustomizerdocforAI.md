@@ -10,6 +10,7 @@ The **Resume Customizer** is a Google Cloud Function designed to tailor a master
     - Input: Reads master resume PDF from the bucket.
     - Output: Saves customized Resume and Cover Letter as `.docx` files.
 - **Trigger**: HTTP (Public/Unauthenticated for this implementation)
+- **Secrets**: Google Secret Manager (`gemini-api-key`)
 
 ## Key Components
 
@@ -31,7 +32,11 @@ The core logic resides here.
 Shell script to deploy the function to GCP.
 - Region: `us-central1`
 - Function Name: `resume-customizer`
-- Environment Variables: Sets `GEMINI_API_KEY`.
+- **Secrets Mounting**: Mounts `gemini-api-key` from Secret Manager as the `GEMINI_API_KEY` environment variable.
+
+### 2a. Git Configuration
+- Repository initialized with `.gitignore` to exclude sensitive data (keys, pycache).
+
 
 ### 3. Testing (`tests/test_customizer.py`)
 Unit tests verify the business logic.
@@ -70,9 +75,15 @@ Returns a JSON object with GCS URIs to the generated files:
 1. Ensure `gcloud` is installed and authenticated.
 2. Set `PROJECT_ID` in `deploy.sh` if needed.
 3. Run:
-   ```bash
+   ```
    ./deploy.sh
    ```
+4. **Secret Management**:
+   The `GEMINI_API_KEY` is not stored in code. It must be created in Secret Manager:
+   ```bash
+   echo -n "YOUR_KEY" | gcloud secrets create gemini-api-key --data-file=-
+   ```
+   And the Service Account must have `roles/secretmanager.secretAccessor`.
 
 ## Development
 To run tests:

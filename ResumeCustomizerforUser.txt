@@ -34,3 +34,9 @@ File Naming Convention:
 - Cover Letter: [Company]_[JobTitle]_CoverLetter_[Date].docx
 
 You can download them from the Google Cloud Console or using the gcloud command line tool.
+
+MAINTENANCE
+The AI configuration uses a secret key managed in Google Cloud Secret Manager.
+- Secret Name: `gemini-api-key`
+- If you need to rotate the key, update the secret version in GCP; no code change is required.
+
